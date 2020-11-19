@@ -14,10 +14,10 @@ class Table {
     virtual int H1(K key)=0;
     virtual int H2(K key)=0;
     int Hash(int start, int jump, int i);
-    int Search(K key);
-    void Insert(T element);
-    void Delete(T element);
-    void Update(int i, T element);
+    int Search(Item<T,K> element);
+    void Insert(Item<T,K> element);
+    void Delete(Item<T,K> element);
+    void Update(int i, Item<T,K> element);
   private: 
     int NextPrime(int m); // returns min prime > m
     bool isPrime(int n); 
@@ -66,14 +66,46 @@ int Table<T,K>::Hash(int start, int jump, int i) {
 // is a permuation of numbers (1,m-1).
 // If it repeats numbers then it could return -1 even if the element exists
 template <class T, class K>
-int Table<T,K>::Search(K key) {
-  int start = H1(key);
-  int jump = H2(key);
-  for(int i = 0; i < m; ++i) {
-    int index = Hash(start, jump, i);
-    if (arr[index].key == key) return index; 
+int Table<T,K>::Search(Item<T,K> element) {
+  int start = H1(element.key);
+  int jump = H2(element.key);
+  int index;
+  for(int i = 0; i < size && arr.at(index).flag != empty; ++i) {
+    index = Hash(start, jump, i);
+    if (arr.at(index).key == element.key) return index; 
   }
   return -1;
 }
 
+template <class T, class K>
+void Table<T,K>::Insert(Item<T,K> element) {
+  int start = H1(element.key);
+  int jump = H2(element.key);
+  int index;
+  for (int i = 0; i < size; ++i) {
+    index = Hash(start, jump, i);
+    if (arr.at(index).flag != full) {
+      arr.at(index) = element;
+      return;
+    }
+  }
+}
+
+template <class T, class K>
+void Table<T,K>::Delete(Item<T,K> element) {
+  int index = Search(element.key);
+  if ( index == -1 ) return;
+  else {
+    arr.at(index).flag = deleted;
+    // call destructor on T?
+    // delete element.data ?? Bad because this forces data to be a heap pointer
+    // any other options? 
+    // Just leave it? 
+  }
+}
+
+template <class T, class K>
+void Table<T,K>::Update(int i, Item<T,K> element) {
+  arr.at(i).data = element.data; // what? Now we can never find it!
+}
 #endif 
