@@ -6,7 +6,7 @@
 
 // T=type of element, K=type of key. T and K are both elements of Item
 template <class T, class K>
-class Table {
+class Table { 
   public:
     std::vector<Item<T,K>> arr; // Item has fields of types T and K.
 
@@ -32,7 +32,7 @@ Table<T,K>::Table(int m){
   arr.reserve(nextPrime(m)); 
   for (int i = 0; i < arr.capacity(); ++i){
     Item<T, K> item;
-    arr.at(i) = item;
+    arr.push_back(item);
   }  
 }
 
@@ -82,7 +82,7 @@ template <class T, class K>
 void Table<T,K>::Insert(Item<T,K> element) {
   int start = H1(element.key);
   int step = H2(element.key);
-  int index;
+  int index = start;
 
   for (int i = 0; i < arr.capacity(); ++i) {
     index = Hash(start, step, i);
