@@ -1,24 +1,42 @@
 #include "int_table.h"
+#include <cstdlib>
 #include <iostream>
+#include <ctime>
 using namespace std;
 
+void printTable(Int_Table table) {
+    for(int i = 0; i < table.arr.capacity(); ++i) {
+        cout << i << ": ";
+        if(table.arr.at(i).flag == full ){
+            cout << "-->" << table.arr.at(i).key;
+        }
+        cout << "\n";
+    }
+}
+const int n = 90;
+const int insertNum = 50;
 int main() {
-    Int_Table table(20);
-    Item<int, int> items[20];
-    int numbers[] = {50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69};
-    for (int i = 0; i < 20; ++i) {
+    srand(time(nullptr));
+    Int_Table table(n);
+    Item<int, int> items[n];
+    int numbers[insertNum];
+    for (int i = 0; i < insertNum; ++i) {
+        numbers[i] = i + 200;
+    }
+    for (int i = 0; i < insertNum; ++i) {
         items[i].data = items[i].key = numbers[i];
         items[i].flag = state::empty;
     }
 
-    for (int i = 0; i < table.arr.capacity(); ++i) {
-        table.Insert(items[i]);
+    cout << "capacity: "  << table.arr.capacity() << "\n";
 
+    for (int i = 0; i < insertNum; ++i) {
+        table.Insert(items[i]);
     }
-    for (int i = 0; i < table.arr.capacity(); ++i) {
-        if (table.arr.at(i).flag == full){
-            cout << i << ": ";
-            cout << table.arr.at(i).data << "\n";
-        }
-    }
+
+    cout << "capacity: "  << table.arr.capacity() << "\n";
+
+    printTable(table);
+    
+    cout << "capacity: "  << table.arr.capacity() << "\n";
 }
