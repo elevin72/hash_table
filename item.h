@@ -2,7 +2,7 @@
 #define ITEM_H
 enum state {empty, full, deleted};
 
-template <class T,class K>
+template <class T, class K>
 class Item {
   public:
     T data;
