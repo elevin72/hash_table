@@ -5,7 +5,7 @@
 #include <ctime>
 using namespace std;
 
-void printTable(Int_Table table) { // we'll need to template the print function to handle any kind of table
+void printTable(Int_Table table) {
     for(int i = 0; i < table.arr.capacity(); ++i) {
         cout << i << ": ";
         if(table.arr.at(i).flag == full ){
@@ -17,7 +17,7 @@ void printTable(Int_Table table) { // we'll need to template the print function 
 const int n = 90;
 const int insertNum = 50;
 int main() {
-    srand(time(nullptr)); // why?
+    srand(time(nullptr));
     Int_Table table(n);
     Item<int, int> items[n];
     int numbers[insertNum];
