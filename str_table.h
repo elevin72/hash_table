@@ -1,9 +1,5 @@
 #ifndef STR_TABLE_H
 #define STR_TABLE_H
-
-#include <vector>
-#include <list>
-#include <string>
 #include "table.h"
 
 class Str_Table : public Table<std::list<std::string>, std::string> {
