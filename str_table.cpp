@@ -9,7 +9,7 @@ void Str_Table::addNewTopic(std::string topic, std::string disc) {
     else {
         std::list<std::string> items;
         items.push_front(disc);
-        Item item(items, topic, full);
+        Item<std::list<std::string>, std::string> item(items, topic, full);
         insert(item);
     }
 }
