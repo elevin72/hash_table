@@ -1,6 +1,28 @@
 #include "str_table.h"
 #include <iostream>
 
+int Str_Table::H1(std::string key) { 
+    unsigned int n, upper;
+    n = stringToInt(key);
+    upper = n << 4;
+    n = upper ^ n;
+    return n % M;
+}
+
+int Str_Table::H2(std::string key) {
+    int p = prevPrime(M);
+    int q = stringToInt(key) % p;
+    return p - q;
+}
+
+int Str_Table::stringToInt(std::string s) {
+    unsigned int total = 0, length = s.length();
+    for (int i = 0; i < length; ++i)
+        total += s.at(i);
+    total = (length * total);
+    return total;
+}
+
 Str_Table::Str_Table(int m) : Table(m) {
     std::list<std::string> disc;
     for (int i = 0; i < M; ++i) {
@@ -8,6 +30,18 @@ Str_Table::Str_Table(int m) : Table(m) {
     }
 }
 
+void Str_Table::deleteItem(std::string s) {
+    int index = search(s);
+    if (index != -1) {
+        arr.at(index).data.clear();
+        arr.at(index).flag = deleted;
+    }
+}
+
+void Str_Table::update(int pos, std::string disc) {
+    arr.at(pos).data.push_front(disc);
+}
+ 
 void Str_Table::addNewTopic(std::string topic, std::string disc) {
     int pos = search(topic);
     if (pos != -1) {

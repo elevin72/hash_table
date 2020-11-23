@@ -24,8 +24,8 @@ class Table {
 
     int search(K key);
     void insert(Item<T,K> item);
-    void deleteItem(K key);
-    void update(int pos, std::string disc);
+    virtual void deleteItem(K key);
+    virtual void update(int pos, T data);
 
   protected: 
     int nextPrime(int m); // returns first prime > m
@@ -114,7 +114,7 @@ template <class T, class K>
 void Table<T,K>::deleteItem(K key) {
   int index = search(key);
   if ( index != -1 ) {
-    arr.at(index).data.clear();
+    /* arr.at(index).data.clear(); // should not be here */
     arr.at(index).flag = deleted;
   }
 
@@ -122,7 +122,7 @@ void Table<T,K>::deleteItem(K key) {
 }
 
 template <class T, class K>
-void Table<T,K>::update(int pos, std::string disc) {
-    arr.at(pos).data.push_front(disc);
+void Table<T,K>::update(int pos, T data) {
+    arr.at(pos).data = data;
 }
 #endif
