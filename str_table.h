@@ -5,7 +5,7 @@
 class Str_Table : public Table<std::list<std::string>, std::string> {
     public:
 
-    std::vector<Item<std::list<std::string>, std::string>> items;
+    std::vector<Item<std::list<std::string>, std::string> > items;
     int H1(std::string key) {
         int upper = stringToInt(key) >> 2;
         int lower = stringToInt(key) << 2;
@@ -20,7 +20,7 @@ class Str_Table : public Table<std::list<std::string>, std::string> {
         unsigned int total = 0, length = s.length();
         for (int i = 0; i < length; ++i)
             total += s.at(i);
-        total = (length * total) - (s.front() + s.back());
+        total = (length * total);
         return total;
     }
 

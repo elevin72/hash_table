@@ -11,7 +11,7 @@ template <class T, class K>
 class Table { 
   public:
     int M;
-    std::vector<Item<T,K>> arr;
+    std::vector<Item<T,K> > arr;
 
     Table(int m);  // Table will be of size (first prime > m)
     ~Table() {}

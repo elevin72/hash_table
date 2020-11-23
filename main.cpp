@@ -1,3 +1,11 @@
+/** 
+    Name:  Bryan Altman
+    HW: 02
+    desc: Implementation of a hash table.
+            The table itself is a template capable of hashing any kind of data.
+            Str_Table is the specific implementation of a hash table for string data.
+ **/
+
 #include "str_table.h"
 #include <iostream>
 using namespace std;
@@ -15,8 +23,8 @@ int main()
 	cout << "a: Add a subject and a title" << endl;
 	cout << "d: Del a subject " << endl;
 	cout << "t: print all titles of the subject " << endl;
+    cout << "s: print N first appearances of a subect " << endl;
 	cout << "p: print all non-empty entries " << endl;
-	cout << "s: print N first appearances of a subect " << endl;
 	cout << "e: Exit" << endl;
 	do
 	{
