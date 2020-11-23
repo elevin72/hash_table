@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
-enum state {empty, full, deleted};
 
+enum state {empty, full, deleted};
 template <class T, class K>
 class Item {
   public:
@@ -9,7 +9,7 @@ class Item {
     K key;
     state flag;
     Item(){ flag = empty; }
-    Item(T d, K k, state f){ data=d; key=k; flag=f;}
+    Item(T d, K k, state f) { data=d; key=k; flag=f;}
 };
 
 #endif

@@ -1,29 +1,50 @@
 #include "str_table.h"
+#include <iostream>
 
 void Str_Table::addNewTopic(std::string topic, std::string disc) {
-    Item item(topic, disc, full);
-    int pos = Search(item);
-    if (pos == -1)
-        Insert(item);
-    else {
-        // append item to list member of existing topic
-    }
-}
-
-void Str_Table::printTopic(Item<std::string, std::string> topic, std::vector<std::list<Item<std::string, std::string>>> &items){
-    int pos = Search(topic);
+    int pos = search(topic);
     if (pos != -1) {
+        update(pos, disc);
+    }
+    else {
+        std::list<std::string> items;
+        items.push_front(disc);
+        Item item(items, topic, full);
+        insert(item);
     }
 }
 
-void Str_Table::printFirstNDisc(Item<std::string, std::string> topic, int N) {
+void Str_Table::printTopic(std::string topic, int pos){
+    std::list<std::string>::iterator end = arr.at(pos).data.end();
 
+    for (std::list<std::string>::iterator it = arr.at(pos).data.begin();
+    it != end; ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
+void Str_Table::printFirstNDisc(std::string topic, int pos, int N) {
+    int count = 0;
+    std::list<std::string>::iterator end = arr.at(pos).data.end();
+
+    for (std::list<std::string>::iterator it = arr.at(pos).data.begin();
+    it != end && count < N; ++it) {
+        std::cout << *it << " ";
+        count++;
+    }
+    std::cout << std::endl;
 }
 
 void Str_Table::printAllTopics() {
-
+    for (int i = 0; i < M; ++i)
+        if (arr.at(i).flag == full)
+            printTopic(arr.at(i).key, i);
 }
 
 void Str_Table::resetTable() {
-
+    for (int i = 0; i < M; ++i) {
+        arr.at(i).data.clear();
+        arr.at(i).flag = empty;
+    }
 }

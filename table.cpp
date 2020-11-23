@@ -1,5 +1,6 @@
 #include "table.h"
 
+/** PRIME NUMBER UTILITY FUNCTIONS **/
 template <class T, class K>
 bool Table<T,K>::isPrime(int n) {
   if (n == 0 || n == 1) { return false; }
@@ -32,10 +33,13 @@ int Table<T,K>::prevPrime(int m){
             return i;
 }
 
+/** CONSTRUCTOR/DESTRUCTOR **/
 template <class T, class K>
 Table<T,K>::Table(int m){ 
-  arr.reserve(nextPrime(m)); 
-  for (int i = 0; i < arr.capacity(); ++i){
+  M = (nextPrime(m));
+  arr.reserve(M);
+
+  for (int i = 0; i < M; ++i){
     std::list<Item<T,K>> items;
     Item<T,K> item;
     items.push_back(item);
@@ -43,45 +47,49 @@ Table<T,K>::Table(int m){
   }  
 }
 
+// TODO: Build Destructor
+
+/** C.R.U.D. FUNCTIONS **/
 template <class T, class K>
-int Table<T,K>::search(Item<T,K> item) {
-  int start = H1(item.key);
-  int step = H2(item.key);
-  int index;
-  for(int i = 0; i < arr.capacity() && arr.at(index).begin()->flag != empty; ++i) {
-    index = hash(start, step, i);
-    if (arr.at(index).begin().key == item.key)
-      for () // stopped here
-      return index; 
+int Table<T,K>::search(K key) {
+  int index = H1(key);
+  int step = H2(key);
+
+  for(int i = 0; i < M && arr.at(index).flag != empty; ++i) {
+    index = hash(index, step, i);
+    if (arr.at(index).key == key)
+      return index;
   }
   return -1;
 }
 
 template <class T, class K>
-void Table<T,K>::Insert(Item<T,K> element) {
-  int start = H1(element.key);
-  int step = H2(element.key);
-  int index = start;
+void Table<T,K>::insert(Item<T,K> item) {
+  int index = H1(item.key);
+  int step = H2(item.key);
 
-  for (int i = 0; i < arr.capacity(); ++i) {
-    index = hash(start, step, i);
+  for (int i = 0; i < M; ++i) {
+    index = hash(index, step, i);
     if (arr.at(index).flag != full) {
-      arr.at(index) = element;
+      arr.at(index) = item;
       arr.at(index).flag = full;
-      break;
+      return;
     }
   }
+
+  // Exception: Hash Table is full
 }
 
 template <class T, class K>
-void Table<T,K>::Delete(Item<T,K> element) {
-  int index = Search(element.key);
+void Table<T,K>::deleteItem(K key) {
+  int index = search(key);
   if ( index != -1 )
     arr.at(index).flag = deleted;
+
+  // Exception: Item does not exist
 }
 
 template <class T, class K>
-void Table<T,K>::Update(int i, Item<T,K> element) {
-  if (Search(element) != -1)
-    arr.at(i).data = element.data;
+void Table<T,K>::update(int pos, std::string disc) {
+    arr.at(pos).data.push_back(disc);
 }

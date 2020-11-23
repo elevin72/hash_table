@@ -1,43 +1,69 @@
-#include "int_table.h"
 #include "str_table.h"
-#include <cstdlib>
 #include <iostream>
-#include <ctime>
 using namespace std;
 
-void printTable(Int_Table table) {
-    for(int i = 0; i < table.arr.capacity(); ++i) {
-        cout << i << ": ";
-        if(table.arr.at(i).flag == full ){
-            cout << "-->" << table.arr.at(i).key;
-        }
-        cout << "\n";
-    }
-}
-const int n = 90;
-const int insertNum = 50;
-int main() {
-    srand(time(nullptr));
-    Int_Table table(n);
-    Item<int, int> items[n];
-    int numbers[insertNum];
-    for (int i = 0; i < insertNum; ++i) {
-        numbers[i] = i + 200;
-    }
-    for (int i = 0; i < insertNum; ++i) {
-        items[i].data = items[i].key = numbers[i];
-        items[i].flag = state::empty;
-    }
+int main()
+{
+	char c;
+	int N, pos;
+	Str_Table hs(1000);
+	string topic, disc;
 
-    cout << "capacity: "  << table.arr.capacity() << "\n";
-
-    for (int i = 0; i < insertNum; ++i) {
-        table.Insert(items[i]);
-    }
-
-    cout << "capacity: "  << table.arr.capacity() << "\n";
-
-    printTable(table);
-    
-    cout << "capacity: "  << table.arr.capacity() << "\n";
+	cout << "Hash Table\n";
+	cout << "\nChoose one of the following" << endl;
+	cout << "n: New hash table" << endl;
+	cout << "a: Add a subject and a title" << endl;
+	cout << "d: Del a subject " << endl;
+	cout << "t: print all titles of the subject " << endl;
+	cout << "s: print N first appearances of a subect " << endl;
+	cout << "p: print all non-empty entries " << endl;
+	cout << "e: Exit" << endl;
+	do
+	{
+		cin >> c;
+		switch (c)
+		{
+		
+		case 'n':
+            hs.resetTable();
+            break;
+		case 'a':
+            cout << "Enter a subject and a title\n";
+			cin >> topic >> disc;
+			hs.addNewTopic(topic, disc);
+			break;
+		case 'd':
+            cout << "Enter a subject to remove\n";
+			cin >> topic;
+			hs.deleteItem(topic);
+            break;
+		case 't':
+            cout << "enter subject to print\n";
+			cin >> topic;
+            pos = hs.search(topic);
+            if (pos != -1)
+			    hs.printTopic(topic, pos);
+            else
+                cout << "ERROR" << endl;
+            break;
+		case 's':
+            cout << "enter a subject and N\n";
+            cin >> topic >> N; 
+            pos = hs.search(topic);
+            if (pos != -1)
+			    hs.printFirstNDisc(topic, pos, N);
+            else
+                cout << "ERROR" << endl;
+            break;
+		case 'p':
+            hs.printAllTopics();
+            break;
+        case 'e':
+            cout << "bye\n";
+            break;
+		default:
+            cout << "ERROR\n";
+            break;
+		}
+	} while (c != 'e');
 }
