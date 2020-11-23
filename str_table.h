@@ -14,7 +14,7 @@ class Str_Table : public Table<std::list<std::string>, std::string> {
     }
     int H2(std::string key) {
         int p = prevPrime(M);
-        return p - (std::stoi(key) % p);
+        return p - (stringToInt(key) % p);
     }
     unsigned int stringToInt(std::string s) {
         unsigned int total = 0, length = s.length();

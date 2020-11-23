@@ -45,8 +45,10 @@ void Str_Table::printFirstNDisc(std::string topic, int pos, int N) {
 
 void Str_Table::printAllTopics() {
     for (int i = 0; i < M; ++i)
-        if (arr.at(i).flag == full)
+        if (arr.at(i).flag == full) {
+            std::cout << arr.at(i).key << ":";
             printTopic(arr.at(i).key, i);
+        }
 }
 
 void Str_Table::resetTable() {

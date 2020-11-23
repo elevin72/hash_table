@@ -113,14 +113,16 @@ void Table<T,K>::insert(Item<T,K> item) {
 template <class T, class K>
 void Table<T,K>::deleteItem(K key) {
   int index = search(key);
-  if ( index != -1 )
+  if ( index != -1 ) {
+    arr.at(index).data.clear();
     arr.at(index).flag = deleted;
+  }
 
   // Exception: Item does not exist
 }
 
 template <class T, class K>
 void Table<T,K>::update(int pos, std::string disc) {
-    arr.at(pos).data.push_back(disc);
+    arr.at(pos).data.push_front(disc);
 }
 #endif
