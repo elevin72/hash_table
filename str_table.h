@@ -3,7 +3,6 @@
 #include "table.h"
 
 class Str_Table : public Table<std::list<std::string>, std::string> {
-    using Table::Table; // illegal in c++98. TODO: build constructor for each class
     public:
 
     std::vector<Item<std::list<std::string>, std::string>> items;
@@ -25,6 +24,7 @@ class Str_Table : public Table<std::list<std::string>, std::string> {
         return total;
     }
 
+    Str_Table(int m);
     void addNewTopic(std::string topic, std::string disc);
     void printTopic(std::string topic, int pos);
     void printFirstNDisc(std::string topic, int pos, int N);

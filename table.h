@@ -71,13 +71,9 @@ int Table<T,K>::prevPrime(int m){
 template <class T, class K>
 Table<T,K>::Table(int m){ 
   M = (nextPrime(m));
-  arr.reserve(M);
-
   for (int i = 0; i < M; ++i){
-    std::list<Item<T,K>> items;
     Item<T,K> item;
-    items.push_back(item);
-    arr.push_back(items);
+    arr.push_back(item);
   }  
 }
 

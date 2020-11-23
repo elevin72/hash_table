@@ -1,6 +1,13 @@
 #include "str_table.h"
 #include <iostream>
 
+Str_Table::Str_Table(int m) : Table(m) {
+    std::list<std::string> disc;
+    for (int i = 0; i < M; ++i) {
+        arr.at(i).data = disc;
+    }
+}
+
 void Str_Table::addNewTopic(std::string topic, std::string disc) {
     int pos = search(topic);
     if (pos != -1) {
