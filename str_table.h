@@ -7,7 +7,7 @@
 #include "table.h"
 
 class Str_Table : public Table<std::string, std::string> {
-    using Table::Table;
+    using Table::Table; // illegal in c++11. Must define constructor for each class
     public:
 
     std::vector<std::list<Item<std::string, std::string>>> items;
@@ -27,5 +27,13 @@ class Str_Table : public Table<std::string, std::string> {
     void printFirstNDisc(Item<std::string, std::string> topic, int N);
     void printAllTopics();
     void resetTable();
+    unsigned int stringToInt(std::string s) {
+        int total = 0, length = s.length();
+
+        for (int i = 0; i < length; ++i) {
+            total += s.at(i);
+        } 
+        total = (length*total) - (s.front() + s.back()); // do some random shit
+    }
 };
 #endif

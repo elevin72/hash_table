@@ -36,23 +36,24 @@ template <class T, class K>
 Table<T,K>::Table(int m){ 
   arr.reserve(nextPrime(m)); 
   for (int i = 0; i < arr.capacity(); ++i){
-    Item<T, K> item;
-    arr.push_back(item);
+    std::list<Item<T,K>> items;
+    Item<T,K> item;
+    items.push_back(item);
+    arr.push_back(items);
   }  
 }
 
 template <class T, class K>
-int Table<T,K>::Search(Item<T,K> element) {
-  int start = H1(element.key);
-  int step = H2(element.key);
+int Table<T,K>::search(Item<T,K> item) {
+  int start = H1(item.key);
+  int step = H2(item.key);
   int index;
-
-  for(int i = 0; i < arr.capacity() && arr.at(index).flag != empty; ++i) {
-    index = Hash(start, step, i);
-    if (arr.at(index).key == element.key)
+  for(int i = 0; i < arr.capacity() && arr.at(index).begin()->flag != empty; ++i) {
+    index = hash(start, step, i);
+    if (arr.at(index).begin().key == item.key)
+      for () // stopped here
       return index; 
   }
-
   return -1;
 }
 
@@ -63,7 +64,7 @@ void Table<T,K>::Insert(Item<T,K> element) {
   int index = start;
 
   for (int i = 0; i < arr.capacity(); ++i) {
-    index = Hash(start, step, i);
+    index = hash(start, step, i);
     if (arr.at(index).flag != full) {
       arr.at(index) = element;
       arr.at(index).flag = full;
